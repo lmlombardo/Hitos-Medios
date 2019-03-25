@@ -1,25 +1,28 @@
 'use strict'
 
-const book = require('../models/book')
+const Book = require('../models/book')
 const mongoose = require('mongoose')
 
 
-function getbook (req, res) {
+function getBook (req, res) {
 	let bookId = req.params.bookId
 
-	book.findById(bookId, (err, book) => {
+	Book.findById(bookId, (err, book) => {
 		if (err) return res.status(500).send({message: `No se pudo realizar la peticion, error:  ${err}`})
 		if(!book) return res.status(404).send({message: "El libro no existe"})
 	
 		res.status(200).send({ book })
 	})
+
+
+
 }
 
-function savebook (req, res) {
+function saveBook (req, res) {
 	console.log('POST /api/book')
 	console.log(req.body)
 
-	let book = new book()
+	let book = new Book()
 	book.author = req.body.author
 	book.namebook = req.body.namebook
 	book.editorial = req.body.editorial
@@ -31,21 +34,21 @@ function savebook (req, res) {
 	})
 }
 
-function updatebook (req, res) {
+function updateBook (req, res) {
 	let bookId = req.params.bookId
 	let update = req.body
 
-	User.findByIdAndUpdate(bookId, update, (err, bookUpdated) => {
+	Book.findByIdAndUpdate(bookId, update, (err, bookUpdated) => {
 		if(err) res.status(500).send({message: `No se pudo actualizar el libro, error: ${err}`})
 
 		res.status(200).send({ book: bookUpdated})
 	})
 }
 
-function deletebook (req, res) {
+function deleteBook (req, res) {
 	let bookId = req.params.bookId
 
-	book.findById(bookId, (err, book) => {
+	Book.findById(bookId, (err, book) => {
 		if(err) res.status(500).send({message: `No se pudo borrar el libro, error: ${err}`})
 		
 		book.remove(err => {
@@ -56,8 +59,8 @@ function deletebook (req, res) {
 }
 
 module.exports = {
-	getbook,
-	savebook,
-	updatebook,
-	deletebook
+	getBook,
+	saveBook,
+	updateBook,
+	deleteBook
 }

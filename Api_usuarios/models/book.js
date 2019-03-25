@@ -7,8 +7,8 @@ const BookSchema = new Schema({
 	nameBook : String,
 	author : String,
 	editorial : String,
-	date: { type: Date, default: Date.now()) }
-	ISBN : Number;
+	date: { type: Date, default: Date.now },
+	ISBN : Number
 })
 
 
