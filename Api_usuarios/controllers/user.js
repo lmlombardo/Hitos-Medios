@@ -20,9 +20,8 @@ function saveUser (req, res) {
 
 	let user = new User()
 	user.email = req.body.email
-	user.name = req.body.name
 	user.password = req.body.password
-	user.category = req.body.category
+	user.date = req.body.date
 
 	user.save((err, userStored) => {
 		if(err) res.status(500).send({message: `No se pudo guardar la base de datos, error: ${err}`})
